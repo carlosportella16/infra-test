@@ -1,5 +1,8 @@
 resource "aws_vpc" "my_vpc" {
   cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = "my-vpc"
+  }
 }
 
 resource "aws_subnet" "my_subnets" {
@@ -7,6 +10,9 @@ resource "aws_subnet" "my_subnets" {
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = cidrsubnet(aws_vpc.my_vpc.cidr_block, 8, count.index)
   map_public_ip_on_launch = true
+  tags = {
+    Name = "my-subnet-${count.index + 1}"
+  }
 }
 
 resource "aws_security_group" "my_sg" {
@@ -25,5 +31,9 @@ resource "aws_security_group" "my_sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "my-ecs-sg"
   }
 }

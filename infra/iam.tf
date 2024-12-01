@@ -13,6 +13,15 @@ resource "aws_iam_role" "ecs_task_execution_role" {
       }
     ]
   })
+
+  lifecycle {
+    create_before_destroy = true
+    prevent_destroy       = false
+  }
+
+  tags = {
+    recreate_trigger = timestamp() # Força recriação com base no timestamp
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
