@@ -59,11 +59,9 @@ jobs:
 #    needs: terraform # Garante que o Terraform finalize antes do Docker
 
     steps:
-      # 1. Fazer checkout do código
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # 2. Configurar o AWS CLI
       - name: Configure AWS CLI
         uses: aws-actions/configure-aws-credentials@v3
         with:
@@ -71,21 +69,19 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      # 3. Listar Arquivos para Verificar Caminho do Dockerfile
       - name: List Files
         run: ls -R
 
-      # 4. Construir a Imagem Docker
       - name: Build Docker Image
         run: |
           docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-api-repository:latest -f api-test/Dockerfile .
+        env:
+          MAVEN_OPTS: "-Xmx1024m"
 
-      # 5. Login no Amazon ECR
       - name: Login to Amazon ECR
         run: |
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
-      # 6. Push da Imagem para o ECR
       - name: Push Docker Image to ECR
         run: |
           docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-api-repository:latest
