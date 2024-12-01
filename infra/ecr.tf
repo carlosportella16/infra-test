@@ -6,7 +6,6 @@ resource "aws_ecr_repository" "my_api" {
   }
 
   lifecycle {
-    create_before_destroy = false
     ignore_changes = [name] # Evita conflitos ao recriar o repositório com o mesmo nome
   }
 

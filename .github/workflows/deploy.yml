@@ -1,4 +1,4 @@
-name: Deploy API to AWS ECS
+name: Deploy Terraform and Docker
 
 on:
   push:
@@ -34,12 +34,21 @@ jobs:
         run: terraform init
         working-directory: infra
 
-      # 5. Planejar Infraestrutura
+      # 5. Importar Recursos Existentes (ECR e IAM)
+      - name: Import ECR Repository
+        run: |
+          terraform import aws_ecr_repository.my_api my-api-repository || echo "ECR repository already imported"
+
+      - name: Import IAM Role
+        run: |
+          terraform import aws_iam_role.ecs_task_execution_role ecsTaskExecutionRole || echo "IAM role already imported"
+
+      # 6. Planejar Infraestrutura
       - name: Terraform Plan
         run: terraform plan -out=tfplan
         working-directory: infra
 
-      # 6. Aplicar Infraestrutura
+      # 7. Aplicar Infraestrutura
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
         working-directory: infra
