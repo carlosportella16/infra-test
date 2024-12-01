@@ -65,4 +65,22 @@ jobs:
       # 3. Login no ECR
       - name: Login to Amazon ECR
         run: |
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-std
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+
+      # 4. Build da imagem Docker
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-api-repository:latest .
+
+      # 5. Push da imagem para o ECR
+      - name: Push Docker Image to ECR
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-api-repository:latest
+
+      # 6. Atualizar ECS Service
+      - name: Update ECS Service
+        run: |
+          aws ecs update-service \
+            --cluster my-ecs-cluster \
+            --service my-api-service \
+            --force-new-deployment
