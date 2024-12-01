@@ -6,10 +6,7 @@ resource "aws_ecr_repository" "my_api" {
   }
 
   lifecycle {
-    ignore_changes = [name] # Evita conflitos ao recriar o repositório com o mesmo nome
-  }
-
-  tags = {
-    recreate_trigger = timestamp() # Força recriação com base no timestamp
+    prevent_destroy = false
+    ignore_changes = [name] # Ignora o nome para evitar recriações acidentais
   }
 }

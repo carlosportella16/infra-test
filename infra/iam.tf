@@ -15,15 +15,7 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   })
 
   lifecycle {
-    ignore_changes = [name] # Não tenta alterar a role já existente
+    prevent_destroy = false
+    ignore_changes = [name] # Ignora o nome para evitar recriações
   }
-
-  tags = {
-    recreate_trigger = timestamp() # Força recriação com base no timestamp
-  }
-}
-
-resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy" {
-  role       = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
