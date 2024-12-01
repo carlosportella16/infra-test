@@ -15,8 +15,8 @@ resource "aws_iam_role" "ecs_task_execution_role" {
   })
 
   lifecycle {
-    create_before_destroy = true
-    prevent_destroy       = false
+    ignore_changes = [name] # Não tenta alterar a role já existente
+    create_before_destroy = false
   }
 
   tags = {
