@@ -9,5 +9,4 @@ terraform {
 
 provider "aws" {
   region  = "sa-east-1" # Região desejada
-  profile = "carlosportella"   # Nome do perfil configurado
 }
