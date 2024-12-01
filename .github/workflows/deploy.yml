@@ -32,18 +32,17 @@ jobs:
       # 4. Inicializar Terraform
       - name: Terraform Init
         run: terraform init
+        working-directory: infra
 
-      # 5. Validar Terraform
-      - name: Terraform Validate
-        run: terraform validate
-
-      # 6. Executar Terraform Plan
+      # 5. Planejar Infraestrutura
       - name: Terraform Plan
         run: terraform plan -out=tfplan
+        working-directory: infra
 
-      # 7. Aplicar Terraform
+      # 6. Aplicar Infraestrutura
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
+        working-directory: infra
 
   docker:
     name: Build and Deploy Docker Image
@@ -65,24 +64,5 @@ jobs:
 
       # 3. Login no ECR
       - name: Login to Amazon ECR
-        id: login-ecr
         run: |
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
-
-      # 4. Build da imagem Docker
-      - name: Build Docker Image
-        run: |
-          docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-api-repository:latest .
-
-      # 5. Push da imagem para o ECR
-      - name: Push Docker Image to ECR
-        run: |
-          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-api-repository:latest
-
-      # 6. Atualizar ECS Service
-      - name: Update ECS Service
-        run: |
-          aws ecs update-service \
-            --cluster my-ecs-cluster \
-            --service my-api-service \
-            --force-new-deployment
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-std
