@@ -2,7 +2,7 @@
 FROM openjdk:21 AS builder
 WORKDIR /api-test
 COPY . .
-RUN .api-test/mvnw clean package -DskipTests
+RUN ./mvnw clean package -DskipTests
 
 # Etapa 2: Construir a imagem final
 FROM openjdk:21
