@@ -37,6 +37,7 @@ jobs:
       # 5. Importar Recursos Existentes
       - name: Import Existing Resources
         shell: bash
+        working-directory: infra
         run: |
           terraform state list aws_vpc.my_vpc || terraform import aws_vpc.my_vpc vpc-12345678
           terraform state list aws_subnet.my_subnets[0] || terraform import aws_subnet.my_subnets[0] subnet-12345678
