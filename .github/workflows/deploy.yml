@@ -36,26 +36,15 @@ jobs:
 
       # 5. Importar Recursos Existentes
       - name: Import Existing Resources
+        shell: bash
         run: |
-            if ! terraform import aws_vpc.my_vpc <vpc-id>; then
-              echo "VPC já importada"
-            fi
-            if ! terraform import aws_subnet.my_subnets[0] <subnet-id-1>; then
-              echo "Subnet 1 já importada"
-            fi
-            if ! terraform import aws_subnet.my_subnets[1] <subnet-id-2>; then
-              echo "Subnet 2 já importada"
-            fi
-            if ! terraform import aws_security_group.my_sg <security-group-id>; then
-              echo "Security Group já importado"
-            fi
-            if ! terraform import aws_ecs_cluster.my_cluster my-ecs-cluster; then
-              echo "ECS Cluster já importado"
-            fi
-            if ! terraform import aws_ecr_repository.my_api my-api-repository; then
-              echo "ECR Repository já importado"
-            fi
-          shell: bash
+          terraform state list aws_vpc.my_vpc || terraform import aws_vpc.my_vpc <vpc-id>
+          terraform state list aws_subnet.my_subnets[0] || terraform import aws_subnet.my_subnets[0] <subnet-id-1>
+          terraform state list aws_subnet.my_subnets[1] || terraform import aws_subnet.my_subnets[1] <subnet-id-2>
+          terraform state list aws_security_group.my_sg || terraform import aws_security_group.my_sg <security-group-id>
+          terraform state list aws_ecs_cluster.my_cluster || terraform import aws_ecs_cluster.my_cluster my-ecs-cluster
+          terraform state list aws_ecr_repository.my_api || terraform import aws_ecr_repository.my_api my-api-repository
+
       # 6. Planejar Infraestrutura
       - name: Terraform Plan
         run: terraform plan -out=tfplan
