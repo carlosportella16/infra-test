@@ -37,12 +37,12 @@ jobs:
       # 5. Importar Recursos Existentes
       - name: Import Existing Resources
         run: |
-            terraform import aws_vpc.my_vpc <vpc-id> || echo "VPC already imported"
-            terraform import aws_subnet.my_subnets[0] <subnet-id-1> || echo "Subnet 1 already imported"
-            terraform import aws_subnet.my_subnets[1] <subnet-id-2> || echo "Subnet 2 already imported"
-            terraform import aws_security_group.my_sg <security-group-id> || echo "Security Group already imported"
-            terraform import aws_ecs_cluster.my_cluster my-ecs-cluster || echo "ECS Cluster already imported"
-            terraform import aws_ecr_repository.my_api my-api-repository || echo "ECR Repository already imported"
+          if ! terraform import aws_vpc.my_vpc <vpc-id>; then echo "VPC already imported"; fi
+          if ! terraform import aws_subnet.my_subnets[0] <subnet-id-1>; then echo "Subnet 1 already imported"; fi
+          if ! terraform import aws_subnet.my_subnets[1] <subnet-id-2>; then echo "Subnet 2 already imported"; fi
+          if ! terraform import aws_security_group.my_sg <security-group-id>; then echo "Security Group already imported"; fi
+          if ! terraform import aws_ecs_cluster.my_cluster my-ecs-cluster; then echo "ECS Cluster already imported"; fi
+          if ! terraform import aws_ecr_repository.my_api my-api-repository; then echo "ECR Repository already imported"; fi
 
       # 6. Planejar Infraestrutura
       - name: Terraform Plan
