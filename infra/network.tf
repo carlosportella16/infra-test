@@ -16,8 +16,8 @@ resource "aws_subnet" "my_subnets" {
 }
 
 resource "aws_security_group" "my_sg" {
-  name        = "ecs-sg"
-  vpc_id      = aws_vpc.my_vpc.id
+  name   = "ecs-sg"
+  vpc_id = aws_vpc.my_vpc.id
 
   ingress {
     from_port   = 8080
