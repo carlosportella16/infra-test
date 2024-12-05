@@ -2,6 +2,7 @@ resource "aws_ecs_cluster" "my_cluster" {
   name = "my-ecs-cluster"
 }
 
+
 # Definição de Tarefa ECS
 resource "aws_ecs_task_definition" "my_task" {
   family                   = "my-task"
