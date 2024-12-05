@@ -39,10 +39,10 @@ jobs:
         shell: bash
         working-directory: infra
         run: |
-          terraform state list aws_vpc.my_vpc || terraform import aws_vpc.my_vpc vpc-06c6164a5a1087a81
-          terraform state list aws_subnet.my_subnets[0] || terraform import aws_subnet.my_subnets[0] subnet-074943a2a111a73dd
-          terraform state list aws_subnet.my_subnets[1] || terraform import aws_subnet.my_subnets[1] subnet-07c29e0c6c2c9e9c8
-          terraform state list aws_security_group.my_sg || terraform import aws_security_group.my_sg sg-028007d516acb3e39
+          terraform state list aws_vpc.my_vpc || terraform import aws_vpc.my_vpc vpc-025c03cbc0a07b1e1
+          terraform state list aws_subnet.my_subnets[0] || terraform import aws_subnet.my_subnets[0] subnet-0f7f24c019c63fab3
+          terraform state list aws_subnet.my_subnets[1] || terraform import aws_subnet.my_subnets[1] subnet-09d75a9c2188e33a2
+          terraform state list aws_security_group.my_sg || terraform import aws_security_group.my_sg sg-03f55974474dffa57
           terraform state list aws_ecs_cluster.my_cluster || terraform import aws_ecs_cluster.my_cluster my-ecs-cluster
           terraform state list aws_ecr_repository.my_api || terraform import aws_ecr_repository.my_api my-api-repository
           terraform state list aws_iam_role.ecs_task_execution_role || terraform import aws_iam_role.ecs_task_execution_role ecsTaskExecutionRole
