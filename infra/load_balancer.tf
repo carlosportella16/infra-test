@@ -41,7 +41,3 @@ resource "aws_lb_listener" "ecs_listener" {
     target_group_arn = aws_lb_target_group.ecs_tg.arn
   }
 }
-
-lifecycle {
-  prevent_destroy = true
-}
