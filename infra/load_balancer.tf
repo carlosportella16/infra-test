@@ -4,6 +4,10 @@ resource "aws_lb" "ecs_alb" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.my_sg.id]
   subnets            = aws_subnet.my_subnets[*].id
+
+  tags = {
+    Name = "my-alb"
+  }
 }
 
 resource "aws_lb_target_group" "ecs_tg" {
@@ -14,12 +18,16 @@ resource "aws_lb_target_group" "ecs_tg" {
   target_type = "ip"
 
   health_check {
-    path                = "/health"
+    path                = "/"
     interval            = 30
     timeout             = 5
     healthy_threshold   = 2
     unhealthy_threshold = 2
     matcher             = "200-299"
+  }
+
+  tags = {
+    Name = "my-target-group"
   }
 }
 

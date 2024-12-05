@@ -9,11 +9,15 @@ resource "aws_subnet" "my_subnets" {
   count                   = 2
   vpc_id                  = aws_vpc.my_vpc.id
   cidr_block              = cidrsubnet(aws_vpc.my_vpc.cidr_block, 8, count.index)
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
   map_public_ip_on_launch = true
+
   tags = {
     Name = "my-subnet-${count.index + 1}"
   }
 }
+
+data "aws_availability_zones" "available" {}
 
 resource "aws_security_group" "my_sg" {
   name   = "ecs-sg"
