@@ -39,7 +39,7 @@ jobs:
         shell: bash
         working-directory: infra
         run: |
-          terraform state list aws_vpc.my_vpc || terraform import aws_vpc.my_vpc vpc-12345678
+          terraform state list aws_vpc.my_vpc || terraform import aws_vpc.my_vpc vpc-06c6164a5a1087a81
           terraform state list aws_subnet.my_subnets[0] || terraform import aws_subnet.my_subnets[0] subnet-12345678
           terraform state list aws_subnet.my_subnets[1] || terraform import aws_subnet.my_subnets[1] subnet-87654321
           terraform state list aws_security_group.my_sg || terraform import aws_security_group.my_sg sg-12345678
