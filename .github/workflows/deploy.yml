@@ -38,10 +38,10 @@ jobs:
       - name: Import Existing Resources
         shell: bash
         run: |
-          terraform state list aws_vpc.my_vpc || terraform import aws_vpc.my_vpc <vpc-id>
-          terraform state list aws_subnet.my_subnets[0] || terraform import aws_subnet.my_subnets[0] <subnet-id-1>
-          terraform state list aws_subnet.my_subnets[1] || terraform import aws_subnet.my_subnets[1] <subnet-id-2>
-          terraform state list aws_security_group.my_sg || terraform import aws_security_group.my_sg <security-group-id>
+          terraform state list aws_vpc.my_vpc || terraform import aws_vpc.my_vpc vpc-12345678
+          terraform state list aws_subnet.my_subnets[0] || terraform import aws_subnet.my_subnets[0] subnet-12345678
+          terraform state list aws_subnet.my_subnets[1] || terraform import aws_subnet.my_subnets[1] subnet-87654321
+          terraform state list aws_security_group.my_sg || terraform import aws_security_group.my_sg sg-12345678
           terraform state list aws_ecs_cluster.my_cluster || terraform import aws_ecs_cluster.my_cluster my-ecs-cluster
           terraform state list aws_ecr_repository.my_api || terraform import aws_ecr_repository.my_api my-api-repository
 
