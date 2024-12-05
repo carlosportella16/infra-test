@@ -55,3 +55,4 @@ resource "aws_ecs_service" "my_service" {
 
   desired_count = 1
 }
+
