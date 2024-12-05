@@ -74,9 +74,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-api-repository:latest -f api-test/Dockerfile .
-        env:
-          MAVEN_OPTS: "-Xmx1024m"
+          docker build -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/my-api-repository:latest -f api-test/Dockerfile api-test/
 
       - name: Login to Amazon ECR
         run: |

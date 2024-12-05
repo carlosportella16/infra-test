@@ -5,8 +5,8 @@ WORKDIR /api-test
 # Copiar arquivos do projeto para o container
 COPY . .
 
-# Garantir permissões de execução no Maven Wrapper
-RUN chmod +x ./mvnw
+# Verificar a existência do Maven Wrapper e conceder permissões de execução
+RUN ls -la ./mvnw && chmod +x ./mvnw
 
 # Executar o Maven para construir o projeto
 RUN ./mvnw clean package -DskipTests
