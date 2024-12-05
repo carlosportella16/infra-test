@@ -3,7 +3,7 @@ name: Deploy Terraform and Docker
 on:
   push:
     branches:
-      - main
+      - main2
 
 jobs:
   terraform:
