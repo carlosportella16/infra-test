@@ -45,6 +45,8 @@ jobs:
           terraform state list aws_security_group.my_sg || terraform import aws_security_group.my_sg sg-028007d516acb3e39
           terraform state list aws_ecs_cluster.my_cluster || terraform import aws_ecs_cluster.my_cluster my-ecs-cluster
           terraform state list aws_ecr_repository.my_api || terraform import aws_ecr_repository.my_api my-api-repository
+          terraform state list aws_iam_role.ecs_task_execution_role || terraform import aws_iam_role.ecs_task_execution_role ecsTaskExecutionRole
+      
 
       # 6. Planejar Infraestrutura
       - name: Terraform Plan
