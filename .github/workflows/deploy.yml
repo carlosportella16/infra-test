@@ -46,7 +46,9 @@ jobs:
           terraform state list aws_ecs_cluster.my_cluster || terraform import aws_ecs_cluster.my_cluster my-ecs-cluster
           terraform state list aws_ecr_repository.my_api || terraform import aws_ecr_repository.my_api my-api-repository
           terraform state list aws_iam_role.ecs_task_execution_role || terraform import aws_iam_role.ecs_task_execution_role ecsTaskExecutionRole
-      
+          terraform state list aws_cloudwatch_log_group.ecs_logs || terraform import aws_cloudwatch_log_group.ecs_logs /ecs/my-container-logs
+          terraform state list aws_lb.ecs_alb || terraform import aws_lb.ecs_alb arn:aws:elasticloadbalancing:${{ secrets.AWS_REGION }}:${{ secrets.AWS_ACCOUNT_ID }}:loadbalancer/app/my-alb/50dc6c495c0c9188
+          terraform state list aws_lb_target_group.ecs_tg || terraform import aws_lb_target_group.ecs_tg arn:aws:elasticloadbalancing:${{ secrets.AWS_REGION }}:${{ secrets.AWS_ACCOUNT_ID }}:targetgroup/my-target-group/73e2d6bc24d8a067
 
       # 6. Planejar Infraestrutura
       - name: Terraform Plan

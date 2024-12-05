@@ -4,9 +4,4 @@ resource "aws_ecr_repository" "my_api" {
   image_scanning_configuration {
     scan_on_push = true
   }
-
-  lifecycle {
-    prevent_destroy = false
-    ignore_changes = [name] # Ignora o nome para evitar recriações acidentais
-  }
 }
