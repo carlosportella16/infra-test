@@ -2,6 +2,7 @@ resource "aws_ecs_cluster" "my_cluster" {
   name = "my-ecs-cluster"
 }
 
+
 resource "aws_ecs_task_definition" "my_task" {
   family                   = "my-task"
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
