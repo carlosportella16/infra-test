@@ -20,6 +20,10 @@ resource "aws_lb_target_group" "this" {
     path = var.health_check_path
   }
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   tags = {
     Name = "${var.name_prefix}-tg"
   }
