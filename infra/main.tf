@@ -10,7 +10,7 @@ terraform {
   backend "s3" {
     bucket         = "carlosportella16-sa-east-1-terraform-statefile"  # Substitua pelo seu bucket
     key            = "env:/prod/infra.tfstate"         # Caminho do arquivo de state no bucket
-    region         = "us-east-1"                   # Região do bucket S3
+    region         = "sa-east-1"                   # Região do bucket S3
     dynamodb_table = "carlosportella16-sa-east-1-terraform-lock"          # Tabela DynamoDB para lock
     encrypt        = true
   }
