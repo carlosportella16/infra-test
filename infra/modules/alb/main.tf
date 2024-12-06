@@ -1,3 +1,10 @@
+# Gera um sufixo aleatório para o target group
+resource "random_string" "tg_suffix" {
+  length  = 6
+  special = false
+  upper   = false
+}
+
 resource "aws_lb" "this" {
   name               = "${var.name_prefix}-alb"
   load_balancer_type = "application"
@@ -10,10 +17,11 @@ resource "aws_lb" "this" {
 }
 
 resource "aws_lb_target_group" "this" {
-  name_prefix = "${var.name_prefix}-tg"
-  port     = var.target_port
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
+  # Usa name ao invés de name_prefix, combinando um sufixo aleatório
+  name        = "${var.name_prefix}-tg-${random_string.tg_suffix.id}"
+  port        = var.target_port
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
   target_type = "ip"
 
   health_check {
